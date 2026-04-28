@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael｜李皇家 專業名片 V1</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+    <script>
+        const Wailson_DATA = {
+            LIFF_ID: "2009928339-ZgVtYL8P",
+            BASE_URL: "https://joannahsu0327-maker.github.io/Michael-card/",
+            IMG_MAIN: "Michael_IMAGE.jpg",
+            IMG_INTRO: "CLO_IMAGE.jpg",
+            name: "Michael｜謝承諺",
+            title: "生活保健食品 | 保健專家",
+            intro: "允盛能夠照顧全家人的健康",
+            feature_Title: "生活保健食品服務項目", 
+            item1: "🍎 臨床營養評估與精準建議",
+            item2: "💊 保健品交互作用安全諮詢",
+            item3: "🛡️ 生理調整與慢性風險管理",
+            item4: "🏢 企業健康促進與員工保健",
+            url_Booking: "https://line.me/ti/p/ElU1tYbafI",
+            url_Web: "https://www.usplus-health.com/",
+            phone: "0987305388"
+        };
+
+        async function main() {
+            try {
+                await liff.init({ liffId: Wailson_DATA.LIFF_ID });
+                if (!liff.isLoggedIn()) { liff.login(); return; }
+                
+                const ts = "?t=" + Date.now();
+                const res = await liff.shareTargetPicker([{
+                    "type": "flex", 
+                    "altText": "您好，這是 " + Wailson_DATA.name + " 的專業名片",
+                    "contents": {
+                        "type": "carousel",
+                        "contents": [
+                            { 
+                                "type": "bubble", 
+                                "hero": { "type": "image", "url": Wailson_DATA.BASE_URL + Wailson_DATA.IMG_MAIN + ts, "size": "full", "aspectRatio": "3:4", "aspectMode": "cover" }, 
+                                "body": { "type": "box", "layout": "vertical", "contents": [ 
+                                    { "type": "text", "text": Wailson_DATA.name, "weight": "bold", "size": "xl" }, 
+                                    { "type": "text", "text": Wailson_DATA.title, "size": "sm", "color": "#fb966e", "weight": "bold" } 
+                                ] } 
+                            },
+                            { 
+                                "type": "bubble", 
+                                "hero": { "type": "image", "url": Wailson_DATA.BASE_URL + Wailson_DATA.IMG_INTRO + ts, "size": "full", "aspectRatio": "20:13", "aspectMode": "cover" }, 
+                                "body": { "type": "box", "layout": "vertical", "spacing": "lg", "contents": [
+                                    { "type": "text", "text": Wailson_DATA.intro, "size": "xs", "color": "#888888", "wrap": true },
+                                    { "type": "text", "text": Wailson_DATA.feature_Title, "weight": "bold", "size": "lg", "color": "#fb966e" },
+                                    { "type": "box", "layout": "vertical", "spacing": "sm", "contents": [
+                                        { "type": "text", "text": Wailson_DATA.item1, "size": "md", "weight": "bold" },
+                                        { "type": "text", "text": Wailson_DATA.item2, "size": "md", "weight": "bold" },
+                                        { "type": "text", "text": Wailson_DATA.item3, "size": "md", "weight": "bold" },
+                                        { "type": "text", "text": Wailson_DATA.item4, "size": "md", "weight": "bold" }
+                                    ]}
+                                ]},
+                                "footer": { "type": "box", "layout": "vertical", "contents": [ 
+                                    { "type": "button", "style": "primary", "color": "#fb966e", "action": { "type": "uri", "label": "與我聯繫", "uri": Wailson_DATA.url_Booking } } 
+                                ] }
+                            },
+                            { 
+                                "type": "bubble", 
+                                "body": { "type": "box", "layout": "vertical", "spacing": "md", "contents": [
+                                    { "type": "text", "text": "與我聯繫", "weight": "bold", "size": "lg" }, { "type": "separator" },
+                                    { "type": "box", "layout": "vertical", "spacing": "sm", "contents": [
+                                        { "type": "button", "style": "primary", "color": "#fb966e", "action": { "type": "uri", "label": "撥打電話", "uri": "tel:" + Wailson_DATA.phone } },
+                                        { "type": "button", "style": "secondary", "color": "#EEEEEE", "action": { "type": "uri", "label": "加 LINE 好友", "uri": Wailson_DATA.url_Booking } },
+                                        { "type": "button", "style": "secondary", "color": "#E8F0FE", "action": { "type": "uri", "label": "官方網站", "uri": Wailson_DATA.url_Web } },
+                                        { "type": "button", "style": "link", "height": "sm", "action": { "type": "uri", "label": "📤 分享名片", "uri": "line://app/" + Wailson_DATA.LIFF_ID } }
+                                    ]}
+                                ]}
+                            }
+                        ]
+                    }
+                }]);
+
+                if (res) { liff.closeWindow(); }
+            } catch (err) { 
+                console.error(err);
+                alert("啟動失敗，請檢查權限或網址設定");
+            }
+        }
+        main();
+    </script>
+</body>
+</html>
